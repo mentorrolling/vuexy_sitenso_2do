@@ -1,16 +1,22 @@
-import { Mail, Home } from 'react-feather'
+import { Users, Code, User } from 'react-feather'
 
 export default [
   {
     id: 'home',
-    title: 'Home',
-    icon: <Home size={20} />,
+    title: 'Cursos',
+    icon: <Code size={20} />,
     navLink: '/home'
   },
   {
     id: 'secondPage',
-    title: 'Second Page',
-    icon: <Mail size={20} />,
+    title: 'Equipo',
+    icon: <Users size={20} />,
     navLink: '/second-page'
+  },
+  {
+    id: 'perfil',
+    title: 'Perfil',
+    icon: <User size={20} />,
+    navLink: '/perfil'
   }
 ]

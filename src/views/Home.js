@@ -26,7 +26,7 @@ setCursos({
 }, [])
 
   return (
-    <div class="row row-cols-1 row-cols-md-2">
+    <div className="row row-cols-1 row-cols-md-2">
     {cursos.loading ? <h3>Cargando...</h3> : cursos.datos.map((curso, index) => (
       <div className="col-12 col-md-4 mb-3" key={index}>
         <Card className="h-100">

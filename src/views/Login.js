@@ -1,15 +1,22 @@
 import { useSkin } from '@hooks/useSkin'
 import { Link, Redirect, useHistory } from 'react-router-dom'
 
+//Para poder usar la actions de guardar datos del login en store
+import {useDispatch} from 'react-redux'
+import {handleLogin} from '@store/actions/auth'
+
 //Libreria para manejo de login con Google
 import GoogleLogin from 'react-google-login'
 
-import { Facebook, Twitter, Mail, GitHub } from 'react-feather'
+import { Facebook, Twitter, Mail, GitHub, Code } from 'react-feather'
+
 import InputPasswordToggle from '@components/input-password-toggle'
 import { Row, Col, CardTitle, CardText, Form, FormGroup, Label, Input, CustomInput, Button } from 'reactstrap'
 import '@styles/base/pages/page-auth.scss'
-
+import logo from '../assets/images/logo/code.png'
 const Login = () => {
+
+ const dispatch = useDispatch()
 
   const history = useHistory()
 
@@ -25,6 +32,8 @@ const Login = () => {
 
       if (response?.profileObj) {
         localStorage.setItem('userData', JSON.stringify(response.profileObj))
+        //Usamos dispatch para ejecutar la accion que guarda en el store el usuario
+        dispatch(handleLogin(response.profileObj))
         history.push('/')
       }
 
@@ -36,7 +45,9 @@ const Login = () => {
 
         {/* Logo de vuexy  */}
         <Link className='brand-logo' to='/'>
-          <svg viewBox='0 0 139 95' version='1.1' height='28'>
+          <img src = {logo} alt = "logo" width={35}/>
+          {/* <Code /> */}
+          {/* <svg viewBox='0 0 139 95' version='1.1' height='28'>
             <defs>
               <linearGradient x1='100%' y1='10.5120544%' x2='50%' y2='89.4879456%' id='linearGradient-1'>
                 <stop stopColor='#000000' offset='0%'></stop>
@@ -83,7 +94,7 @@ const Login = () => {
                 </g>
               </g>
             </g>
-          </svg>
+          </svg> */}
           <h2 className='brand-text text-primary ml-1'>CodeSchool</h2>
         </Link>
 
@@ -96,42 +107,42 @@ const Login = () => {
         <Col className='d-flex align-items-center auth-bg px-2 p-lg-5' lg='4' sm='12'>
           <Col className='px-xl-2 mx-auto' sm='8' md='6' lg='12'>
             <CardTitle tag='h2' className='font-weight-bold mb-1'>
-              Welcome to Vuexy! 👋
+              Bienvenido a CodeSchool!
             </CardTitle>
-            <CardText className='mb-2'>Please sign-in to your account and start the adventure</CardText>
+            <CardText className='mb-2'>Por favor, inicia sesión para comenzar la aventura</CardText>
             <Form className='auth-login-form mt-2' onSubmit={e => e.preventDefault()}>
               <FormGroup>
                 <Label className='form-label' for='login-email'>
-                  Email
+                  Correo electrónico
                 </Label>
                 <Input type='email' id='login-email' placeholder='john@example.com' autoFocus />
               </FormGroup>
               <FormGroup>
                 <div className='d-flex justify-content-between'>
                   <Label className='form-label' for='login-password'>
-                    Password
+                    Contraseña
                   </Label>
                   <Link to='/'>
-                    <small>Forgot Password?</small>
+                    <small>No recuerdas tu contraseña?</small>
                   </Link>
                 </div>
                 <InputPasswordToggle className='input-group-merge' id='login-password' />
               </FormGroup>
               <FormGroup>
-                <CustomInput type='checkbox' className='custom-control-Primary' id='remember-me' label='Remember Me' />
+                <CustomInput type='checkbox' className='custom-control-Primary' id='remember-me' label='Recuerdame' />
               </FormGroup>
               <Button.Ripple tag={Link} to='/' color='primary' block>
-                Sign in
+                Iniciar sesión
               </Button.Ripple>
             </Form>
             <p className='text-center mt-2'>
-              <span className='mr-25'>New on our platform?</span>
+              <span className='mr-25'>Eres nuevo en la plataforma? </span>
               <Link to='/'>
-                <span>Create an account</span>
+                <span>Crea una cuenta</span>
               </Link>
             </p>
             <div className='divider my-2'>
-              <div className='divider-text'>or</div>
+              <div className='divider-text'>o</div>
             </div>
             <div className='auth-footer-btn d-flex justify-content-center'>
             <GoogleLogin

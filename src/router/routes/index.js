@@ -26,8 +26,8 @@ const Routes = [
   },
   {
     path: '/perfil',
-    component: lazy(() => import('../../views/Perfil')),
-    layout: 'BlankLayout'
+    component: lazy(() => import('../../views/Perfil'))
+    
    },
   {
     path: '/error',
